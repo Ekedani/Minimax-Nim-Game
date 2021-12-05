@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Minimax_Nim_Game.Algorithm
+{
+    public class NimGameState
+    {
+        public readonly int[] HeapSizes;
+
+        public NimGameState(int[] heapSizes)
+        {
+            HeapSizes = heapSizes;
+            HeapSizes = new[] {1, 3, 5, 7};
+        }
+
+        public bool IsTerminal()
+        {
+            var result = 0;
+            foreach (var heapSize in HeapSizes)
+            {
+                result += heapSize;
+            }
+
+            return result == 1;
+        }
+
+        public List<NimGameState> GenerateChildrenStates()
+        {
+            var childrenStates = new List<NimGameState>();
+            for (var i = 0; i < HeapSizes.Length; i++)
+            {
+                for (var j = 0; j <= HeapSizes[i]; j++)
+                {
+                    var newHeapSizes = new int[HeapSizes.Length];
+                    Array.Copy(HeapSizes, newHeapSizes, HeapSizes.Length);
+                    newHeapSizes[i] = j;
+                    childrenStates.Add(new NimGameState(newHeapSizes));
+                }
+            }
+
+            return childrenStates;
+        }
+
+        public NimGameState MakeAMove(int heap, int objects)
+        {
+            var newHeapSizes = new int[HeapSizes.Length];
+            Array.Copy(HeapSizes, newHeapSizes, HeapSizes.Length);
+            newHeapSizes[heap] -= objects;
+            if (newHeapSizes[heap] < 0)
+            {
+                throw new Exception("Num of object can't be negative!");
+            }
+
+            return new NimGameState(newHeapSizes);
+        }
+    }
+}

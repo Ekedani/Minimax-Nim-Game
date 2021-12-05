@@ -1,0 +1,16 @@
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\Minimax-Nim-Game.exe
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\Minimax-Nim-Game.deps.json
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\Minimax-Nim-Game.runtimeconfig.json
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\Minimax-Nim-Game.runtimeconfig.dev.json
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\Minimax-Nim-Game.dll
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\ref\Minimax-Nim-Game.dll
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\bin\Debug\net5.0-windows\Minimax-Nim-Game.pdb
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.csproj.AssemblyReference.cache
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.AssemblyInfoInputs.cache
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.AssemblyInfo.cs
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.csproj.CoreCompileInputs.cache
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.dll
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\ref\Minimax-Nim-Game.dll
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.pdb
+D:\Programming\Minimax-Nim-Game\Minimax-Nim-Game\obj\Debug\net5.0-windows\Minimax-Nim-Game.genruntimeconfig.cache

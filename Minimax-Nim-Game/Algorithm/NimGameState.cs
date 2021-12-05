@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Enumeration;
+using System.Linq;
 
 namespace Minimax_Nim_Game.Algorithm
 {
@@ -38,10 +40,13 @@ namespace Minimax_Nim_Game.Algorithm
                     var newHeapSizes = new int[HeapSizes.Length];
                     Array.Copy(HeapSizes, newHeapSizes, HeapSizes.Length);
                     newHeapSizes[i] = j;
+                    if (newHeapSizes.Sum() == 0)
+                    {
+                        continue;
+                    }
                     childrenStates.Add(new NimGameState(newHeapSizes));
                 }
             }
-
             return childrenStates;
         }
 

@@ -10,6 +10,10 @@ namespace Minimax_Nim_Game.Algorithm
         public NimGameState(int[] heapSizes)
         {
             HeapSizes = heapSizes;
+        }
+        
+        public NimGameState()
+        {
             HeapSizes = new[] {1, 3, 5, 7};
         }
 
@@ -29,7 +33,7 @@ namespace Minimax_Nim_Game.Algorithm
             var childrenStates = new List<NimGameState>();
             for (var i = 0; i < HeapSizes.Length; i++)
             {
-                for (var j = 0; j <= HeapSizes[i]; j++)
+                for (var j = 0; j < HeapSizes[i]; j++)
                 {
                     var newHeapSizes = new int[HeapSizes.Length];
                     Array.Copy(HeapSizes, newHeapSizes, HeapSizes.Length);
@@ -53,5 +57,16 @@ namespace Minimax_Nim_Game.Algorithm
 
             return new NimGameState(newHeapSizes);
         }
+
+        public override string ToString()
+        {
+            var result = "[ ";
+            foreach (var heapSize in HeapSizes)
+            {
+                result += Convert.ToString(heapSize) + " ";
+            }
+
+            return result += "]";
+        }  
     }
 }

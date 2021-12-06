@@ -7,7 +7,7 @@ namespace Minimax_Nim_Game.Algorithm
         public readonly NimGameState State;
         public int AlphaEval;
         public int BetaEval;
-        public List<MinimaxNode> ChildrenNodes;
+        public readonly List<MinimaxNode> ChildrenNodes;
 
         public MinimaxNode(NimGameState state)
         {
@@ -20,8 +20,8 @@ namespace Minimax_Nim_Game.Algorithm
 
     public class MinimaxNimTree
     {
-        private readonly MinimaxNode _rootNode;
         private readonly int _depthLimit;
+        private readonly MinimaxNode _rootNode;
 
         public MinimaxNimTree(NimGameState rootState, int depthLimit = 4)
         {
@@ -61,39 +61,29 @@ namespace Minimax_Nim_Game.Algorithm
                     ProcessNode(newChildrenNode, depth + 1);
                     if (isMax)
                     {
-                        if (node.AlphaEval < newChildrenNode.BetaEval)
-                        {
-                            node.AlphaEval = newChildrenNode.BetaEval;
-                        }
+                        if (node.AlphaEval < newChildrenNode.BetaEval) node.AlphaEval = newChildrenNode.BetaEval;
                     }
                     else
                     {
-                        if (node.BetaEval > newChildrenNode.AlphaEval)
-                        {
-                            node.BetaEval = newChildrenNode.AlphaEval;
-                        }
+                        if (node.BetaEval > newChildrenNode.AlphaEval) node.BetaEval = newChildrenNode.AlphaEval;
                     }
+
                     node.ChildrenNodes.Add(newChildrenNode);
-                    if (node.AlphaEval >= node.BetaEval)
-                    {
-                        break;
-                    }
+                    if (node.AlphaEval >= node.BetaEval) break;
                 }
             }
         }
-        
+
         public NimGameState AiMakeMove()
         {
             NimGameState maxState = null;
             var maxEval = int.MinValue;
             foreach (var childrenNode in _rootNode.ChildrenNodes)
-            {
                 if (maxEval < childrenNode.BetaEval)
                 {
                     maxState = childrenNode.State;
                     maxEval = childrenNode.BetaEval;
                 }
-            }
 
             return maxState;
         }
@@ -107,13 +97,10 @@ namespace Minimax_Nim_Game.Algorithm
                 result ^= stateHeapSize;
                 resultSum += stateHeapSize;
             }
-            
+
             //Misere Nim
-            if (resultSum == 1)
-            {
-                result = 0;
-            }
-            
+            if (resultSum == 1) result = 0;
+
             return result != 0 ? 1 : -1;
         }
     }

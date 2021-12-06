@@ -29,15 +29,9 @@ namespace Minimax_Nim_Game
             gameField.RowCount = _currentState.HeapSizes.Length;
             gameField.ColumnCount = _currentState.HeapSizes.Max();
             var objSize = gameField.RowTemplate.Height;
-            foreach (DataGridViewColumn gameFieldColumn in gameField.Columns)
-            {
-                gameFieldColumn.Width = objSize;
-            }
+            foreach (DataGridViewColumn gameFieldColumn in gameField.Columns) gameFieldColumn.Width = objSize;
 
-            for (var i = 0; i < _currentState.HeapSizes.Length; i++)
-            {
-                RenderHeap(i);
-            }
+            for (var i = 0; i < _currentState.HeapSizes.Length; i++) RenderHeap(i);
         }
 
 
@@ -53,28 +47,17 @@ namespace Minimax_Nim_Game
 
         private void RenderHeap(int heap)
         {
-            for (int i = 0; i < gameField.Columns.Count; i++)
-            {
-                gameField[i, heap].Style.BackColor = Color.Azure;
-            }
+            for (var i = 0; i < gameField.Columns.Count; i++) gameField[i, heap].Style.BackColor = Color.Azure;
 
-            for (var j = 0; j < _currentState.HeapSizes[heap]; j++)
-            {
-                gameField[j, heap].Style.BackColor = Color.DarkBlue;
-            }
+            for (var j = 0; j < _currentState.HeapSizes[heap]; j++) gameField[j, heap].Style.BackColor = Color.DarkBlue;
         }
 
         private void gameField_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            for (var i = 0; i < _currentState.HeapSizes.Length; i++)
-            {
-                RenderHeap(i);
-            }
+            for (var i = 0; i < _currentState.HeapSizes.Length; i++) RenderHeap(i);
 
             for (var j = e.ColumnIndex; j < _currentState.HeapSizes[e.RowIndex]; j++)
-            {
                 gameField[j, e.RowIndex].Style.BackColor = Color.DarkGreen;
-            }
         }
 
         private void ChangeState(int heap, int objNum)
@@ -95,10 +78,7 @@ namespace Minimax_Nim_Game
         {
             var miniMaxTree = new MinimaxNimTree(_currentState);
             _currentState = miniMaxTree.AiMakeMove();
-            for (var i = 0; i < _currentState.HeapSizes.Length; i++)
-            {
-                RenderHeap(i);
-            }
+            for (var i = 0; i < _currentState.HeapSizes.Length; i++) RenderHeap(i);
 
             if (!_currentState.IsTerminal()) return;
             moveButton.Enabled = false;
@@ -119,10 +99,7 @@ namespace Minimax_Nim_Game
             {
                 skipButton.Enabled = false;
                 var selectedCells = gameField.SelectedCells;
-                if (selectedCells.Count > 1)
-                {
-                    throw new Exception("Only one cell must be selected!");
-                }
+                if (selectedCells.Count > 1) throw new Exception("Only one cell must be selected!");
 
                 var selectedCell = selectedCells[0];
                 var heap = selectedCell.RowIndex;

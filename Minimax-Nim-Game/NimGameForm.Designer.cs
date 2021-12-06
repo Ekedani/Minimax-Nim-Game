@@ -34,7 +34,7 @@
             this.restartButton = new System.Windows.Forms.Button();
             this.skipButton = new System.Windows.Forms.Button();
             this.gameControlBox = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.moveButton = new System.Windows.Forms.Button();
             this.turnLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.gameField)).BeginInit();
             this.gameControlBox.SuspendLayout();
@@ -88,7 +88,7 @@
             // 
             // gameControlBox
             // 
-            this.gameControlBox.Controls.Add(this.button1);
+            this.gameControlBox.Controls.Add(this.moveButton);
             this.gameControlBox.Controls.Add(this.skipButton);
             this.gameControlBox.Controls.Add(this.restartButton);
             this.gameControlBox.Location = new System.Drawing.Point(426, 107);
@@ -98,14 +98,15 @@
             this.gameControlBox.TabStop = false;
             this.gameControlBox.Text = "Game control";
             // 
-            // button1
+            // moveButton
             // 
-            this.button1.Location = new System.Drawing.Point(7, 62);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(210, 35);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Make a move!";
-            this.button1.UseVisualStyleBackColor = true;
+            this.moveButton.Location = new System.Drawing.Point(7, 62);
+            this.moveButton.Name = "moveButton";
+            this.moveButton.Size = new System.Drawing.Size(210, 35);
+            this.moveButton.TabIndex = 3;
+            this.moveButton.Text = "Make a move!";
+            this.moveButton.UseVisualStyleBackColor = true;
+            this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
             // 
             // turnLabel
             // 
@@ -131,8 +132,7 @@
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Button button1;
-
+        private System.Windows.Forms.Button moveButton;
         private System.Windows.Forms.Label turnLabel;
         private System.Windows.Forms.Button restartButton;
         private System.Windows.Forms.Button skipButton;

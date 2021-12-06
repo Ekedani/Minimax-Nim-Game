@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Windows.Forms.VisualStyles;
+﻿using System.Collections.Generic;
 
 namespace Minimax_Nim_Game.Algorithm
 {
@@ -27,7 +23,7 @@ namespace Minimax_Nim_Game.Algorithm
         private readonly MinimaxNode _rootNode;
         private readonly int _depthLimit;
 
-        public MinimaxNimTree(NimGameState rootState, int depthLimit = 3)
+        public MinimaxNimTree(NimGameState rootState, int depthLimit = 4)
         {
             _rootNode = new MinimaxNode(rootState);
             _depthLimit = depthLimit;

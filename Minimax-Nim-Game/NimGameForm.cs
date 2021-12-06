@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Minimax_Nim_Game.Algorithm;
 
@@ -50,6 +45,9 @@ namespace Minimax_Nim_Game
         {
             var startState = new NimGameState();
             _currentState = startState;
+            skipButton.Enabled = true;
+            moveButton.Enabled = true;
+            turnLabel.Text = "Your turn!";
             RenderNimGame();
         }
 
@@ -59,6 +57,7 @@ namespace Minimax_Nim_Game
             {
                 gameField[i, heap].Style.BackColor = Color.Azure;
             }
+
             for (var j = 0; j < _currentState.HeapSizes[heap]; j++)
             {
                 gameField[j, heap].Style.BackColor = Color.DarkBlue;
@@ -78,37 +77,74 @@ namespace Minimax_Nim_Game
             }
         }
 
-        private void MakeAMove(int heap, int objNum)
+        private void ChangeState(int heap, int objNum)
         {
-            if (!(_currentState.HeapSizes[heap] < objNum))
+            //TODO: Remake
+            if (!(_currentState.HeapSizes[heap] < objNum) && objNum > 0)
             {
                 _currentState.HeapSizes[heap] -= objNum;
+                RenderHeap(heap);
             }
-            RenderHeap(heap);
+            else
+            {
+                throw new Exception("Invalid cell selected!");
+            }
         }
 
         private void AiMove()
         {
             var miniMaxTree = new MinimaxNimTree(_currentState);
-            var newCurrentState = miniMaxTree.AiMakeMove();
-            _currentState = newCurrentState;
+            _currentState = miniMaxTree.AiMakeMove();
             for (var i = 0; i < _currentState.HeapSizes.Length; i++)
             {
                 RenderHeap(i);
             }
-            if (newCurrentState.IsTerminal())
-            {
-                //TODO: Loss
-            }
-            else
-            {
-                
-            }
+
+            if (!_currentState.IsTerminal()) return;
+            moveButton.Enabled = false;
+            MessageBox.Show("You have lost!", "Result",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            turnLabel.Text = "Defeat";
         }
 
         private void skipButton_Click(object sender, EventArgs e)
         {
             AiMove();
+            skipButton.Enabled = false;
+        }
+
+        private void moveButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                skipButton.Enabled = false;
+                var selectedCells = gameField.SelectedCells;
+                if (selectedCells.Count > 1)
+                {
+                    throw new Exception("Only one cell must be selected!");
+                }
+
+                var selectedCell = selectedCells[0];
+                var heap = selectedCell.RowIndex;
+                var objNum = _currentState.HeapSizes[heap] - selectedCell.ColumnIndex;
+                ChangeState(heap, objNum);
+                if (_currentState.IsTerminal())
+                {
+                    moveButton.Enabled = false;
+                    MessageBox.Show("You have won!", "Result",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    turnLabel.Text = "Victory!";
+                }
+                else
+                {
+                    AiMove();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

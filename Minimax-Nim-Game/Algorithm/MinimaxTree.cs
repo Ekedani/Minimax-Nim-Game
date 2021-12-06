@@ -55,9 +55,10 @@ namespace Minimax_Nim_Game.Algorithm
                 var childrenStates = node.State.GenerateChildrenStates();
                 foreach (var nimGameState in childrenStates)
                 {
-                    var newChildrenNode = new MinimaxNode(nimGameState);
-                    newChildrenNode.AlphaEval = node.AlphaEval;
-                    newChildrenNode.BetaEval = node.BetaEval;
+                    var newChildrenNode = new MinimaxNode(nimGameState)
+                    {
+                        AlphaEval = node.AlphaEval, BetaEval = node.BetaEval
+                    };
                     ProcessNode(newChildrenNode, depth + 1);
                     if (isMax)
                     {
@@ -100,7 +101,7 @@ namespace Minimax_Nim_Game.Algorithm
 
             //Misere Nim
             if (resultSum == 1) result = 0;
-
+            
             return result != 0 ? 1 : -1;
         }
     }

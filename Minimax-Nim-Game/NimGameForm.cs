@@ -18,7 +18,7 @@ namespace Minimax_Nim_Game
 
         private void CreateNimGame()
         {
-            //You can add array as parameter if you don't want classic nim
+            //You can add array as parameter if you don't want to play classic nim
             var startState = new NimGameState();
             _currentState = startState;
             RenderNimGame();
@@ -62,7 +62,6 @@ namespace Minimax_Nim_Game
 
         private void ChangeState(int heap, int objNum)
         {
-            //TODO: Remake
             if (!(_currentState.HeapSizes[heap] < objNum) && objNum > 0)
             {
                 _currentState.HeapSizes[heap] -= objNum;
@@ -105,6 +104,7 @@ namespace Minimax_Nim_Game
                 var heap = selectedCell.RowIndex;
                 var objNum = _currentState.HeapSizes[heap] - selectedCell.ColumnIndex;
                 ChangeState(heap, objNum);
+                gameField.ClearSelection();
                 if (_currentState.IsTerminal())
                 {
                     moveButton.Enabled = false;

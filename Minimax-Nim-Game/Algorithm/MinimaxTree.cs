@@ -10,12 +10,16 @@ namespace Minimax_Nim_Game.Algorithm
     {
         public readonly NimGameState State;
         public int Evaluation;
+        public int AlphaEval;
+        public int BetaEval;
         public List<MinimaxNode> ChildrenNodes;
 
         public MinimaxNode(NimGameState state)
         {
             State = state;
             ChildrenNodes = new List<MinimaxNode>();
+            AlphaEval = int.MinValue;
+            BetaEval = int.MaxValue;
         }
     }
 
@@ -24,7 +28,7 @@ namespace Minimax_Nim_Game.Algorithm
         private readonly MinimaxNode _rootNode;
         private readonly int _depthLimit;
 
-        public MinimaxNimTree(NimGameState rootState, int depthLimit = 3)
+        public MinimaxNimTree(NimGameState rootState, int depthLimit = 8)
         {
             _rootNode = new MinimaxNode(rootState);
             _depthLimit = depthLimit;
@@ -40,10 +44,14 @@ namespace Minimax_Nim_Game.Algorithm
         {
             if (node.State.IsTerminal() || depth == _depthLimit * 2)
             {
-                node.Evaluation = EvaluateState(node.State);
                 if (depth % 2 != 0)
                 {
-                    node.Evaluation *= -1;
+                    node.BetaEval = EvaluateState(node.State);
+                    node.BetaEval *= -1;
+                }
+                else
+                {
+                    node.AlphaEval = EvaluateState(node.State);
                 }
             }
             else
@@ -54,36 +62,42 @@ namespace Minimax_Nim_Game.Algorithm
                 foreach (var nimGameState in childrenStates)
                 {
                     var newChildrenNode = new MinimaxNode(nimGameState);
+                    newChildrenNode.AlphaEval = node.AlphaEval;
+                    newChildrenNode.BetaEval = node.BetaEval;
                     ProcessNode(newChildrenNode, depth + 1);
                     if (isMax)
                     {
-                        if (node.Evaluation < newChildrenNode.Evaluation)
+                        if (node.AlphaEval < newChildrenNode.BetaEval)
                         {
-                            node.Evaluation = newChildrenNode.Evaluation;
+                            node.AlphaEval = newChildrenNode.BetaEval;
                         }
                     }
                     else
                     {
-                        if (node.Evaluation > newChildrenNode.Evaluation)
+                        if (node.BetaEval > newChildrenNode.AlphaEval)
                         {
-                            node.Evaluation = newChildrenNode.Evaluation;
+                            node.BetaEval = newChildrenNode.AlphaEval;
                         }
                     }
                     node.ChildrenNodes.Add(newChildrenNode);
+                    if (node.AlphaEval >= node.BetaEval)
+                    {
+                        break;
+                    }
                 }
             }
         }
-
+        
         public NimGameState AiMakeMove()
         {
             NimGameState maxState = null;
             var maxEval = int.MinValue;
             foreach (var childrenNode in _rootNode.ChildrenNodes)
             {
-                if (maxEval < childrenNode.Evaluation)
+                if (maxEval < childrenNode.AlphaEval)
                 {
                     maxState = childrenNode.State;
-                    maxEval = childrenNode.Evaluation;
+                    maxEval = childrenNode.AlphaEval;
                 }
             }
 

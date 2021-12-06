@@ -9,7 +9,6 @@ namespace Minimax_Nim_Game.Algorithm
     public class MinimaxNode
     {
         public readonly NimGameState State;
-        public int Evaluation;
         public int AlphaEval;
         public int BetaEval;
         public List<MinimaxNode> ChildrenNodes;
@@ -28,7 +27,7 @@ namespace Minimax_Nim_Game.Algorithm
         private readonly MinimaxNode _rootNode;
         private readonly int _depthLimit;
 
-        public MinimaxNimTree(NimGameState rootState, int depthLimit = 8)
+        public MinimaxNimTree(NimGameState rootState, int depthLimit = 3)
         {
             _rootNode = new MinimaxNode(rootState);
             _depthLimit = depthLimit;
@@ -42,9 +41,10 @@ namespace Minimax_Nim_Game.Algorithm
 
         private void ProcessNode(MinimaxNode node, int depth)
         {
+            var isMax = depth % 2 == 0;
             if (node.State.IsTerminal() || depth == _depthLimit * 2)
             {
-                if (depth % 2 != 0)
+                if (!isMax)
                 {
                     node.BetaEval = EvaluateState(node.State);
                     node.BetaEval *= -1;
@@ -56,9 +56,7 @@ namespace Minimax_Nim_Game.Algorithm
             }
             else
             {
-                var isMax = depth % 2 == 0;
                 var childrenStates = node.State.GenerateChildrenStates();
-                node.Evaluation = isMax ? int.MinValue : int.MaxValue;
                 foreach (var nimGameState in childrenStates)
                 {
                     var newChildrenNode = new MinimaxNode(nimGameState);
@@ -94,10 +92,10 @@ namespace Minimax_Nim_Game.Algorithm
             var maxEval = int.MinValue;
             foreach (var childrenNode in _rootNode.ChildrenNodes)
             {
-                if (maxEval < childrenNode.AlphaEval)
+                if (maxEval < childrenNode.BetaEval)
                 {
                     maxState = childrenNode.State;
-                    maxEval = childrenNode.AlphaEval;
+                    maxEval = childrenNode.BetaEval;
                 }
             }
 

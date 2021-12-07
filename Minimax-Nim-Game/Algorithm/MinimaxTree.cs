@@ -101,7 +101,7 @@ namespace Minimax_Nim_Game.Algorithm
 
             //Misere Nim
             if (resultSum == 1) result = 0;
-            
+
             return result != 0 ? 1 : -1;
         }
     }

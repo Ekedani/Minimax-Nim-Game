@@ -98,7 +98,7 @@ namespace Minimax_Nim_Game
             {
                 skipButton.Enabled = false;
                 var selectedCells = gameField.SelectedCells;
-                if (selectedCells.Count > 1) throw new Exception("Only one cell must be selected!");
+                if (selectedCells.Count != 1) throw new Exception("Only one cell must be selected!");
 
                 var selectedCell = selectedCells[0];
                 var heap = selectedCell.RowIndex;
